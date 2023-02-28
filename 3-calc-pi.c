@@ -1,26 +1,16 @@
 #include <stdio.h>
 #include <math.h>
 
-void print_pi(int N);
-double expotentiation(int degree, double basis);
-
+double calc_pi(int Prec);
 
 int main() {
-    int N;
-    printf("Input a precision: N = ");
-    scanf("%d", &N);
-    print_pi(N);
+    int Prec;
+    printf("Input a precision: Prec = ");
+    scanf("%d", &Prec);
+    printf("%.*f\n", Prec, calc_pi(Prec));
 }
 
-double expotentiation(int degree, double basis) {
-    double result = 1;
-    for (int i=1; i <= degree; i++) {
-        result *= basis;
-    }
-    return result;
-}
-
-void print_pi(int N) {
+double calc_pi(int Prec) {
     double SumUp = 0, SumDown=0;
     int n=0;
     do {
@@ -28,7 +18,6 @@ void print_pi(int N) {
         SumUp = SumDown + (4/double(2*n-1)) ;
         n++;
         SumDown = SumUp - (4/double(2*n-1));
-    } while (  fabs(SumUp - SumDown) >= expotentiation(N, 0.1) );
-    printf("%.*f\n", N, fabs(SumUp - SumDown));
-    printf("%.*f\n", N, ((SumUp+SumDown)/2));
+    } while (  fabs(SumUp - SumDown) >= pow(0.1, Prec) );
+    return ((SumUp+SumDown)/2);
 }
