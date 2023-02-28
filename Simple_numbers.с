@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <math.h>
+
+void print_simple_numbers();
+int check_if_i_is_simple(int i);
+
+int i, N;
+
+int main() {
+    printf("Input a number: N = ");
+    scanf("%d", &N);
+    print_simple_numbers();
+}
+
+void print_simple_numbers() {
+    if (N == 1) {
+        printf("No simple numbers\n");
+    }
+    for (i = 2; i <= N; i++) {
+        if (check_if_i_is_simple(i) == 0) {
+            printf("%d\n", i);
+        }
+    }
+}
+
+int check_if_i_is_simple(int i) {
+    int k=0;
+    int j = 2;
+    while ((k == 0) && (j <= sqrt(i))) {
+        if (i % j == 0) {
+            k++;
+        }
+        j++;
+    }
+    return k;
+}
