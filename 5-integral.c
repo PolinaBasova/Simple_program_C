@@ -10,11 +10,11 @@ double Func2(double x){
 }
 
 double dFunc(double (*Funcion) (double), double x, double dx){
-    return ((Funcion(x+dx)-Funcion(x))/dx);
+    return ((Funcion(x+dx) - Funcion(x))/dx);
 }
 
 double d2Func(double (*Funcion) (double), double x, double dx){
-    return ((dFunc(Funcion, x+dx, dx)-dFunc(Funcion, x, dx))/dx);
+    return ((dFunc(Funcion, x+dx, dx) - dFunc(Funcion, x, dx))/dx);
 }
 
 /*
@@ -25,7 +25,7 @@ double calc_error(double (*Funcion) (double), double Up, double Down, int Num, d
     double Max = 0;
     int j;
     for (j = 1; j <= Num; j++){
-        if (fabs(d2Func(Funcion, Down, dx))>= Max){
+        if (fabs(d2Func(Funcion, Down, dx)) >= Max){
             Max = fabs(d2Func(Funcion, Down, dx));
         }
         Down += dx;
