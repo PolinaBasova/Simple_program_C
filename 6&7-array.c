@@ -51,6 +51,14 @@ float calc_RMS (int *adress_arr, int *pointer_size_arr){
     return (sqrtl(sum_squared_differences/(*pointer_size_arr-1)));
 }
 
+void output_calculations(int *adress_arr, int *pointer_size_arr){
+    print_array (adress_arr, pointer_size_arr);
+    printf("\nMax = %d", search_max (adress_arr, pointer_size_arr));
+    printf("\nMin = %d", search_min (adress_arr, pointer_size_arr));
+    printf("\nMean = %f", calc_mean(adress_arr, pointer_size_arr));
+    printf("\nRMS = %f", calc_RMS(adress_arr, pointer_size_arr));
+}
+
 int main(){
     int *pointer_size_arr ;
     int *adress_arr;
@@ -61,22 +69,11 @@ int main(){
     scanf("%d", &size_of_arr);
     int arr[size_of_arr];
     adress_arr = &arr[0];
-    
-    print_array (adress_arr, pointer_size_arr);
-    printf("\nMax = %d", search_max (adress_arr, pointer_size_arr));
-    printf("\nMin = %d", search_min (adress_arr, pointer_size_arr));
-    printf("\nMean = %f", calc_mean(adress_arr, pointer_size_arr));
-    printf("\nRMS = %f", calc_RMS(adress_arr, pointer_size_arr));
+    output_calculations(adress_arr, pointer_size_arr);
     
     printf ("\nInput size of dynamic array: ");
     scanf("%d", &size_of_arr);
     adress_arr = (int*)malloc(size_of_arr * sizeof(int));
-    
-    print_array (adress_arr, pointer_size_arr);
-    printf("\nMax = %d", search_max (adress_arr, pointer_size_arr));
-    printf("\nMin = %d", search_min (adress_arr, pointer_size_arr));
-    printf("\nMean = %f", calc_mean(adress_arr, pointer_size_arr));
-    printf("\nRMS = %f", calc_RMS(adress_arr, pointer_size_arr));
-    
+    output_calculations(adress_arr, pointer_size_arr);
     free(adress_arr);
 }
