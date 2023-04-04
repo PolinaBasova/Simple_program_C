@@ -3,17 +3,17 @@
 #include <math.h>
 #include <malloc.h>
 
-void fill_array(int *adress_arr, int *pointer_size_arr){
-    for (int i = 0; i < *pointer_size_arr; i++){
-        *adress_arr = rand()%20 - 10; //Интервал от -10 до 10
-        adress_arr ++;
+void fill_array(int *arr, int size_arr){
+    for (int i = 0; i < size_arr; i++){
+        *arr = rand()%20 - 10; //Интервал от -10 до 10
+        arr ++;
     }
 }
 
-void print_array(int *adress_arr, int *pointer_size_arr){
-    for (int i = 0; i < *pointer_size_arr; i++){
-        printf("%d ", *adress_arr);
-        adress_arr ++;
+void print_array(int *arr, int size_arr){
+    for (int i = 0; i < size_arr; i++){
+        printf("%d ", *arr);
+        arr ++;
     }
 }
 
@@ -35,45 +35,43 @@ void swap(int *first_el, int *second_el){
     *second_el = buffer;
 }
 
-void bubble_sort(int *adress_arr, int *pointer_size_arr, int (*type_compare) (int*, int*)){
-    int flag;
+void bubble_sort(int *arr, int size_arr, int (*compare) (int*, int*)){
+    int is_array_sorted_flag;
     do{
-        flag = 0;
-        for (int i = 0; i < *pointer_size_arr-1; i++){
-            if (type_compare(adress_arr + i, adress_arr + i + 1) > 0){
-                swap(adress_arr + i, adress_arr + i + 1);
-                flag = 1;
+        is_array_sorted_flag = 0;
+        for (int i = 0; i < size_arr-1; i++){
+            if (compare(arr + i, arr + i + 1) > 0){
+                swap(arr + i, arr + i + 1);
+                is_array_sorted_flag = 1;
             }
         }
-    }while(flag!=0);
+    }while(is_array_sorted_flag!=0);
 }
 
 int main(){
-    int *pointer_size_arr ;
-    int *adress_arr;
-    int size_of_arr; 
-    pointer_size_arr = &size_of_arr;
+    int *arr;
+    int size_arr; 
     printf ("Input size of array: ");
-    scanf("%d", &size_of_arr);
-    adress_arr = (int*)malloc(size_of_arr * sizeof(int));
-    fill_array(adress_arr, pointer_size_arr);
+    scanf("%d", &size_arr);
+    arr = (int*)malloc(size_arr * sizeof(int));
+    fill_array(arr, size_arr);
     printf("Unsorted array: ");
-    print_array(adress_arr, pointer_size_arr);
-    int (*type_compare) (int*, int*);
+    print_array(arr, size_arr);
+    int (*compare) (int*, int*);
     printf("\nChoose sort type: \n1 - sort ascending \n2 - sort descending \n3 - sort by absolute value \nType: ");
     int type;
     scanf("%d", &type);
     if (type == 1){
-        type_compare = &compare_for_sort_ascending;
+        compare = &compare_for_sort_ascending;
     }
     if (type == 2){
-        type_compare = &compare_for_sort_descending;
+        compare = &compare_for_sort_descending;
     }
     if (type == 3){
-        type_compare = &compare_for_sort_abs_value;
+        compare = &compare_for_sort_abs_value;
     }
-    bubble_sort(adress_arr, pointer_size_arr, type_compare);
+    bubble_sort(arr, size_arr, compare);
     printf("Ascending sorted array: ");
-    print_array(adress_arr, pointer_size_arr);
-    free(adress_arr);
+    print_array(arr, size_arr);
+    free(arr);
 }
