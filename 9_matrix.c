@@ -113,6 +113,18 @@ void write_to_file(char file_name[9], Matrix* write_matrix){
     fclose(file);
 }
 
+//Запись в бинарный файл 
+//Т.е. не преобразует числа в символьный тип данных, а записывает их двоичное представление
+void write_to_bin_file(char file_name[9], Matrix* write_matrix){  
+    FILE* file = fopen(file_name, "wb");
+    for (int line = 0; line < 3; line++){
+        for (int column = 0; column < 3; column++){
+            fwrite(&write_matrix->arr[line][column], sizeof(float), 1, file);
+        }
+    }
+    fclose(file);
+}
+
 int main(){
     Matrix A;
     Matrix B;
@@ -153,4 +165,5 @@ int main(){
     print_matrix(&inv);
     
     write_to_file("file.txt", &inv); //Записываем в файл обратную матрицу
+    write_to_bin_file("file.bin", &inv);
 }
